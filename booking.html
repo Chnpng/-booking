@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบนจองคิว</title>
+    <title>ระบบจองคิว</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgb(30 41 59 0.8);
+            background: rgba(30, 41, 59, 0.8);
             z-index: 1000;
             display: flex;
             justify-content: center;
@@ -50,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgb(30 41 59 0.5);
+            background: rgba(30, 41, 59, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,6 +63,8 @@
             border-radius: 8px;
             text-align: left;
             width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         #loadingOverlay {
             display: none;
@@ -71,7 +73,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgb(30 41 59 0.8);
+            background-color: rgba(30, 41, 59, 0.8);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -95,7 +97,7 @@
         <div class="max-w-md popup-content mx-auto" id="popupContent"></div>
     </div>
     
-    <div class=" w-full mx-auto rounded py-4 px-4 mb-4">
+    <div class="w-full mx-auto rounded py-4 px-4 mb-4">
         <form id="bookingForm" class="space-y-2 pt-2" novalidate>
             <input type="hidden" name="action" value="makeBooking">
 
@@ -129,22 +131,30 @@
                             <div class="max-w-md">
                                 <!-- ฟิลด์ชื่อ-สกุล -->
                                 <div class="flex mb-6">
-                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32"><span class="text-white text-sm">ชื่อ-สกุล</span></span>
-                                    <input type="text" id="name" name="name" class="w-full p-2 shadow-sm rounded-2xl">
+                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32">
+                                        <span class="text-white text-sm">ชื่อ-สกุล</span>
+                                    </span>
+                                    <input type="text" id="name" name="name" class="w-full p-2 shadow-sm rounded-2xl input-field">
                                 </div>
                                 <!-- ฟิลด์เบอร์ติดต่อ -->
-                                <div class="flex  mb-6">
-                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32"><span class="text-white text-sm">เบอร์ติดต่อ</span></span>
-                                    <input type="tel" id="phonenumber" name="phonenumber" class="w-full p-2 shadow-sm rounded-2xl">
+                                <div class="flex mb-6">
+                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32">
+                                        <span class="text-white text-sm">เบอร์ติดต่อ</span>
+                                    </span>
+                                    <input type="tel" id="phonenumber" name="phonenumber" class="w-full p-2 shadow-sm rounded-2xl input-field">
                                 </div>
-                                   <!-- ฟิลด์ชื่ออีเมล -->
-                                <div class="flex  mb-6">
-                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32"><span class="text-white text-sm">อีเมล</span></span>
-                                    <input type="text" id="emailaddress" name="emailaddress" class="w-full p-2 shadow-sm rounded-2xl">
+                                <!-- ฟิลด์ชื่ออีเมล -->
+                                <div class="flex mb-6">
+                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32">
+                                        <span class="text-white text-sm">อีเมล</span>
+                                    </span>
+                                    <input type="text" id="emailaddress" name="emailaddress" class="w-full p-2 shadow-sm rounded-2xl input-field">
                                 </div>
                                 <!-- ฟิลด์หมายเหตุ -->
                                 <div class="flex">
-                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32"><span class="text-white text-sm">หมายเหตุ</span></span>
+                                    <span class="text-center bg-slate-800 rounded-2xl mr-2 p-2 w-32">
+                                        <span class="text-white text-sm">หมายเหตุ</span>
+                                    </span>
                                     <input type="text" id="note" name="note" class="w-full p-2 shadow-sm rounded-2xl">
                                 </div>
                                 <input type="hidden" id="userlineid" name="userlineid">
@@ -152,6 +162,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- ปุ่มถัดไป -->
                 <div id="buttons" class="">
                     <button type="button" onclick="nextStep()" class="w-full bg-slate-800 text-white py-3 mt-4 rounded-2xl">ถัดไป</button>
                 </div>
@@ -197,7 +208,6 @@
     </div>
 
     <script>
-        
         // ตัวแปรสำหรับใช้กับ URL ของ Web App และ LIFF
         let WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzyqebYwIwD4TQqPcJ_gLhWA3_yGSw73pinmWHbSM4fqow5Sk-lkbpbEQwPzjq_M3NClQ/exec'; // appscripts booking
         const WEB_APP_MEMBER_URL = 'https://script.google.com/macros/s/AKfycbzu8H-YqDjAaKI-gw8ML7tPL8JG3x0SwJqeID_BgU-cOZ2VUMZ4rAazB9Xfvmq4BYtE/exec'; //appscripts members
@@ -294,6 +304,18 @@
 
         // ฟังก์ชันเปลี่ยนขั้นตอนจาก Step 1 ไป Step 2
         function nextStep() {
+            const name = document.getElementById('name').value.trim();
+            const phonenumber = document.getElementById('phonenumber').value.trim();
+            const emailaddress = document.getElementById('emailaddress').value.trim();
+
+            // ตรวจสอบว่าฟิลด์ไม่ว่าง
+            if (!name || !phonenumber || !emailaddress) {
+                showPopup('ข้อผิดพลาด', 'กรุณากรอกข้อมูล ชื่อ-สกุล, เบอร์ติดต่อ และอีเมลให้ครบถ้วนก่อนดำเนินการต่อ', 'error');
+                return;
+            }
+
+            // **ลบการตรวจสอบรูปแบบอีเมลออก**
+
             if (currentStep < 2) {
                 document.getElementById(`step${currentStep}`).style.display = 'none';
                 currentStep++;
@@ -468,11 +490,6 @@
             }
         }
 
-        // แสดง/ซ่อนแถบโหลดข้อมูล
-        function showLoading(isLoading = true) {
-            document.getElementById('loadingOverlay').style.display = isLoading ? 'flex' : 'none';
-        }
-
         // ซ่อน Popup
         function hidePopup() {
             document.getElementById('popup').style.display = 'none';
@@ -526,7 +543,18 @@
         function showPopup(title, content, type) {
             const popup = document.getElementById('popup');
             const popupContent = document.getElementById('popupContent');
-            popupContent.innerHTML = `<h2 class="text-xl mb-4">${title}</h2><div>${content}</div>`;
+            
+            let icon = '';
+            if (type === 'error') {
+                icon = '<i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>';
+            } else if (type === 'success') {
+                icon = '<i class="fas fa-check-circle text-green-500 mr-2"></i>';
+            } else if (type === 'confirm') {
+                icon = '<i class="fas fa-info-circle text-blue-500 mr-2"></i>';
+            }
+
+            popupContent.innerHTML = `<h2 class="text-xl mb-4 flex items-center">${icon}${title}</h2><div>${content}</div>`;
+            
             if (type === 'confirm') {
                 popupContent.innerHTML += `
                     <div class="flex justify-between my-4">
