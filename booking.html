@@ -199,7 +199,7 @@
     <script>
         
         // ตัวแปรสำหรับใช้กับ URL ของ Web App และ LIFF
-        let WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzyqebYwIwD4TQqPcJ_gLhWA3_yGSw73pinmWHbSM4fqow5Sk-lkbpbEQwPzjq_M3NClQ/exec'; // appscripts booking
+        let WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbySBolybceI1sB56V0z5YrkIdsdFdlSpmkkXV4tofkPQ5kV7lL8D9yyBZjwLUXLk7bz8g/exec'; // appscripts booking
         const WEB_APP_MEMBER_URL = 'https://script.google.com/macros/s/AKfycbzu8H-YqDjAaKI-gw8ML7tPL8JG3x0SwJqeID_BgU-cOZ2VUMZ4rAazB9Xfvmq4BYtE/exec'; //appscripts members
         const LIFF_ID = '2006459955-Ll8yKZBa';
 
@@ -210,8 +210,9 @@
         // โหลดข้อมูลเบื้องต้น เช่น รายการบริการ สถานที่ และ LIFF
         async function loadInitialData() {
             await Promise.all([fetchDropdownData(), initializeLiff()]);
-
             const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 1); // เพิ่มหนึ่งวัน
+
             selectDate(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
             populateYearSelect(currentDate.getFullYear());
             monthSelect.value = currentDate.getMonth();
@@ -220,6 +221,7 @@
             await updateCalendar(currentDate);
             showLoading(false);
         }
+
 
         loadInitialData();
 
@@ -300,7 +302,7 @@
 
             // ตรวจสอบว่าฟิลด์ไม่ว่าง
             if (!name || !phonenumber) {
-                showPopup('ข้อผิดพลาด', 'กรุณากรอกข้อมูล ชื่อ-สกุล, เบอร์ติดต่อ ให้ครบถ้วนก่อนดำเนินการต่อ', 'error');
+                showPopup('ข้อผิดพลาด', 'กรุณากรอกข้อมูล ชื่อ-สกุล, เบอร์ติดต่อ  ให้ครบถ้วนก่อนดำเนินการต่อ', 'error');
                 return;
             }
 
