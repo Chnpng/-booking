@@ -119,8 +119,16 @@
       </div>
       <div>
         <label for="locationFilter" class="block text-xs font-medium text-gray-700">กรองตามสถานที่</label>
-        <input type="text" id="locationFilter" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-          placeholder="พิมพ์สถานที่">
+        <select id="locationservice" name="locationservice" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"placeholder="ตัวเลือกสถานที่">
+          <option value="สยาม">สยาม</option>
+          <option value="เซ็นทรัลพระราม 2">เซ็นทรัลพระราม 2</option>
+          <option value="เซ็นทรัลปิ่นเกล้า">เซ็นทรัลปิ่นเกล้า</option>
+          <option value="เซ็นทรัลเวิร์ล">เซ็นทรัลเวิร์ล</option>
+          <option value="เซ็นทรัลลาดพร้าว">เซ็นทรัลลาดพร้าว</option>
+          <option value="บางกะปิ">บางกะปิ</option>
+          <option value="เเจ้งวัฒนะ">เเจ้งวัฒนะ</option>
+          <option value="ซีคอนบางนา">ซีคอนบางนา</option>
+        </select>
       </div>
       <!-- ปุ่มสำหรับคัดกรองข้อมูล -->
       <button id="applyFiltersButton"
